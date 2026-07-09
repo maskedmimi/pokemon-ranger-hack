@@ -1,5 +1,5 @@
 {
-  "_comment": "Metatile legend for LAYOUT_ROUTE1 (Tidal Reach coastal route east of Zeegem). Primary tileset gTileset_General, secondary gTileset_Dewford (same pair as LAYOUT_ZEEGEM). Every entry below was copied from a real, working map already in this repo -- IDs, collision, and elevation are not invented. Sources: data/layouts/Zeegem/map.bin (shoreline + rocks + solo trees + tree wall), data/layouts/Route101/map.bin (tall grass, ledge, plain grass -- General primary tileset is shared across every vanilla route so these tiles work unmodified here). collision: 0 = walkable, 1 = blocked (per pokeemerald map.bin bit 10-11 encoding). elevation: bits 12-15, 3 matches Zeegem's ground level, 0 matches Zeegem's water level.",
+  "_comment": "Metatile legend for LAYOUT_LAEKON_ROUTE1 (Tidal Reach coastal route east of Zeegem). Primary tileset gTileset_General, secondary gTileset_Dewford (same pair as LAYOUT_ZEEGEM). Every entry below was copied from a real, working map already in this repo -- IDs, collision, and elevation are not invented. Sources: data/layouts/Zeegem/map.bin (shoreline + rocks + solo trees + tree wall), data/layouts/Route101/map.bin (tall grass, ledge, plain grass), data/layouts/Route104/map.bin (verified vanilla water collision/elevation convention). collision: 0 = walkable, 1 = blocked (per pokeemerald map.bin bit 10-11 encoding). elevation: bits 12-15, 3 matches land, 1 matches water -- SEE THE 'why elevation 1' NOTE in shore_and_sea below, this was the source of a real in-game bug (water was walkable) caused by an earlier version of this legend wrongly recording elevation 0 for water.",
 
   "ground": {
     "GRASS":        {"id": "0x001", "collision": 0, "elevation": 3, "behavior": "MB_NORMAL",  "source": "Route101 (0,y) plain lawn"},
@@ -9,9 +9,10 @@
   },
 
   "trees_and_rocks": {
-    "TREE_WALL":  {"id": "0x243", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "Dewford", "source": "Zeegem north/west border fill"},
-    "TREE_EDGE":  {"id": "0x23a", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "Dewford", "source": "Zeegem border, inner transition tile next to open ground"},
-    "TREE_SOLO":  {"id": "0x239", "collision": 1, "elevation": 3, "behavior": "MB_SAND",   "tileset": "Dewford", "source": "Zeegem standalone landmark tree (collision forced to 1 here; Zeegem's own instance is walkable, likely because it's boxed in by neighboring tree-wall tiles there, but a lone tree candidate in open Route1 grass must block)"},
+    "_comment": "Verified against Zeegem's real forest art (not just behavior bytes): 243 is a dense INTERIOR canopy tile with no visible trunk, meant to be surrounded by more forest on multiple sides. 23a and 239 both render a visible trunk/mound and are meant ONLY for a genuine forest-edge-to-open-ground transition (23a) or a deliberate standalone tree sitting alone in a field (239) -- never as filler inside a solid wall. Mixing them into a wall creates a ragged trunk-poking-out look. Rule: a sealing wall is 100% one tile (243), no exceptions.",
+    "TREE_WALL":  {"id": "0x243", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "Dewford", "source": "Zeegem north/west border fill -- the ONLY tile used for sealing walls"},
+    "TREE_EDGE":  {"id": "0x23a", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "Dewford", "source": "Zeegem's diagonal forest-to-sand boundary -- use only where forest genuinely borders open ground on one side, never inside a wall"},
+    "TREE_SOLO":  {"id": "0x239", "collision": 1, "elevation": 3, "behavior": "MB_SAND",   "tileset": "Dewford", "source": "Zeegem standalone landmark tree in open sand -- use only for deliberate scattered decoration, never inside a wall"},
     "ROCK":       {"id": "0x0e2", "collision": 1, "elevation": 3, "behavior": "MB_NORMAL", "tileset": "General", "source": "Zeegem scattered boulder decoration"}
   },
 
@@ -23,13 +24,14 @@
   },
 
   "shore_and_sea": {
-    "_comment": "Two-level coastline copied tile-for-tile from Zeegem's own south shore (rows 16-19). Baseline coastline: land / SHORE_FILL row / SEA rows. A cove is formed by shifting the SHORE_FILL row one row further north for a column span, bridged by the corner pair below.",
-    "SHORE_CORNER_L": {"id": "0x146", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "west end of a shore-edge run; land sits to its west and north-west"},
-    "SHORE_FILL":     {"id": "0x12c", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "straight shore-edge run, tiles freely with itself"},
-    "SHORE_CORNER_R": {"id": "0x145", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "east end of a shore-edge run; land sits to its east and north-east"},
-    "SHORE_STEP_L":   {"id": "0x12d", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "sits directly under SHORE_CORNER_L, bridges edge row down to open sea"},
-    "SHORE_STEP_R":   {"id": "0x12b", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "sits directly under SHORE_CORNER_R"},
-    "SEA":            {"id": "0x170", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "open deep water, tiles freely with itself in all directions"}
+    "_comment": "Two-level coastline copied tile-for-tile from Zeegem's own south shore. Baseline coastline: land / SHORE_FILL row / SEA rows. A cove is formed by shifting the SHORE_FILL row one row further north for a column span, bridged by the corner pair below.",
+    "why elevation 1": "Water traversability is NOT decided by the collision bit here -- collision is 0 (unblocked) on every water tile, same as vanilla. The actual blocker is elevation mismatch: src/event_object_movement.c's IsElevationMismatchAt() compares the player's current elevation to the tile's elevation and blocks on any difference, EXCEPT it treats elevation 0 (ELEVATION_TRANSITION) and 15 (ELEVATION_MULTI_LEVEL) as wildcards that never mismatch (include/global.fieldmap.h). Land here is elevation 3, so water must be a real, distinct, non-wildcard elevation for the mismatch (and therefore the Surf prompt) to trigger at all. An earlier version of this legend recorded water as elevation 0, which is the ELEVATION_TRANSITION wildcard -- it silently matched every possible player elevation, so nothing ever blocked walking onto water. Verified correct value by reading data/layouts/Route104/map.bin (vanilla): water is overwhelmingly (collision 0, elevation 1) there; land/tall grass/sand are (collision 0, elevation 3). Zeegem's own hand-authored water was already elevation 1 all along -- only this generated legend had the bug.",
+    "SHORE_CORNER_L": {"id": "0x146", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "note": "west end of a shore-edge run; land sits to its west and north-west"},
+    "SHORE_FILL":     {"id": "0x12c", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "note": "straight shore-edge run, tiles freely with itself"},
+    "SHORE_CORNER_R": {"id": "0x145", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "note": "east end of a shore-edge run; land sits to its east and north-east"},
+    "SHORE_STEP_L":   {"id": "0x12d", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "note": "sits directly under SHORE_CORNER_L, bridges edge row down to open sea"},
+    "SHORE_STEP_R":   {"id": "0x12b", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "note": "sits directly under SHORE_CORNER_R"},
+    "SEA":            {"id": "0x170", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "note": "open deep water, tiles freely with itself in all directions"}
   },
 
   "border_fill": {
