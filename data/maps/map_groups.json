@@ -136,7 +136,8 @@
     "Underwater_Route105",
     "Underwater_Route125",
     "LittlerootTown_2",
-    "Zeegem"
+    "Zeegem",
+    "LaekonRoute1"
   ],
   "gMapGroup_IndoorLittleroot": [
     "LittlerootTown_BrendansHouse_1F",
@@ -1164,9 +1165,5 @@
   "gMapGroup_IndoorSevenIslandRoute_Frlg": [
     "SevenIsland_SevaultCanyon_House_Frlg"
   ],
-  "gMapGroup_Laekon": [
-    "Zeegem_House1",
-    "Zeegem_House2",
-    "Zeegem_House3"
-  ]
+  "gMapGroup_Laekon": []
 }

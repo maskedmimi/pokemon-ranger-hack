@@ -9344,6 +9344,16 @@
       "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/Zeegem/border.bin",
       "blockdata_filepath": "data/layouts/Zeegem/map.bin"
+    },
+    {
+      "id": "LAYOUT_LAEKON_ROUTE1",
+      "name": "LaekonRoute1_Layout",
+      "width": 40,
+      "height": 20,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Dewford",
+      "border_filepath": "data/layouts/LaekonRoute1/border.bin",
+      "blockdata_filepath": "data/layouts/LaekonRoute1/map.bin"
     }
   ]
 }

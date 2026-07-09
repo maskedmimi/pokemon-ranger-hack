@@ -1744,3 +1744,4 @@ EventScript_PalletTown_PlayersHouse_2F_TurnOnPC::
 	.include "data/maps/Zeegem_House1/scripts.inc"
 	.include "data/maps/Zeegem_House2/scripts.inc"
 	.include "data/maps/Zeegem_House3/scripts.inc"
+	.include "data/maps/LaekonRoute1/scripts.inc"
