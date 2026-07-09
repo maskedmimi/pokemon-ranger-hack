@@ -1,7 +1,7 @@
 # Laekon — Character Reference
 > Full cast document | Companion to DESIGN_DOCUMENT.md
-> Last updated: July 2026 (v3)
-> Origin note: the Ranger leadership and challenger cast are inspired by the creator's friend group (Discord server "Madkings": one creator + three "ministers" → the Heartwarden + the Three Wardens; the server name went to the villain team).
+> Last updated: July 2026 (v4 — rival trio cast: Q promoted to Rival 1, Juliette added as Rival 2; Professor Globo)
+> Origin note: the cast is inspired by the creator's circle (Discord server "Madkings": creator + three "ministers" → Heartwarden + Wardens; friends Douze → Q, Globo → the Professor; fiancée Juliette → Rival 2).
 
 ---
 
@@ -69,12 +69,35 @@ Appointed guardians of the three Trial zones. Each embodies a pillar of the rang
 
 ---
 
+## The Rival Trio
+
+Rivals from the Catch Ceremony who reappear throughout the Trials. Two of three are now cast.
+
+### Rival 1 — Q (Challenger 12)
+*The partner he didn't choose becomes the bond that defines him.*
+- **Personality:** hyperactive, determined, hometown rival from Zeegem. Wants to be the very best Ranger there is — with his passion for cooking always on the side. He adores his Pokémon and his Pokémon adores him.
+- **The Catch Ceremony gag:** Q the cook grabs what he thinks is a perfect apple for his recipes — it bites him. **Applin** is his ceremony partner; he learns to love the partner he never meant to catch (this absorbs the former "Skeptic" rival arc: bond forming despite the initial plan).
+- **Larvitar** is his first wild catch, early in the journey — the ambition pick, slow to raise, growing across the whole rivalry into his ace.
+- **Endgame team:** Tyranitar (ace), Jolteon, Alakazam, **Hydrapple** (the beloved ex-apple; replaces Dragonite to avoid overlap with Flygon and to honor the culinary theme), Lapras, Flygon.
+- **Gameplay layer:** battled most frequently; most tactically instructive. **Side quests:** hands the player homemade potions/dishes he cooked; asks the player to collect ingredients (hooks into the berry system).
+- **Inspiration:** friend Douze — his real dream team, adapted.
+
+### Rival 2 — Juliette
+*Loyalty to the partner everyone else wrote off.*
+- **Personality:** hotheaded, radically emotionally honest — big highs when happy, big lows when angry or sad, and all of it public. Friendly trash-talker: "huh, you got lucky last time — now I'll make you eat dirt, nerd." Celebrates loudly when she finally wins; celebrates *you* (eventually) when you earn it.
+- **The arc:** at the Catch Ceremony she catches a **Magikarp** — everyone snickers at the girl with the flopping fish. She never wavers. She doesn't learn to bond; she *starts* bonded and never stops believing in **Mag**. Then Mag becomes **Gyarados**, and nobody's laughing. The inverse of Riri's arc (understanding a partner who won't listen) — hers is faith in a partner the world dismissed. Keep both; they answer the bond question differently.
+- **Battle identity — the Bulldozer:** pure hyper-offense. No status moves, no switching logic, no strategy — maximum attack, Dragon Dance and go. Early battles are a running joke (Splash!); after Mag evolves mid-game she becomes the rival players genuinely fear — she kicks your ass whenever she gets the chance.
+- **One late beat:** a moment where raw power alone cannot purify a Shadow Pokémon — Mag's bond, not Mag's strength, has to do the lifting. Her superpower stays a superpower; the game never "fixes" her.
+- **Team:** Gyarados ("Mag") + TBD — ask Juliette for her real Galar/Paldea teams; motif is six attackers, all gas, no brakes.
+- **Inspiration:** the creator's fiancée — Mag the Gyarados bulldozed Galar and Paldea in real life.
+
+### Rival 3 — TBD (leading candidate: Sanka & Riri)
+Reserved slot. Leading candidate: promote **Sanka & Riri** into a shared sibling rival thread woven through the brackets — their arcs already interlock with the plot, and the trio would close as: the partner he didn't want (Q), the partner nobody believed in (Juliette), the partners who teach the siblings opposite lessons (Sanka & Riri). Pending creator confirmation.
+
+---
+
 ## The Challenger Cast
 Named competitors met at the Catch Ceremony and throughout the circuit. Numbers are public challenger numbers. Losing brackets costs nobody their career — the Wardens watch the whole season (see hierarchy: participation, not victory).
-
-### Challenger 12 — Q
-- Hyperactive, determined. He adores his Pokémon and his Pokémon adores him. Together they cook succulent dishes; he dreams of healing Pokémon by making them the best meals.
-- **Partner:** Charmander · **Team:** Lapras (+ TBD)
 
 ### Challenger 4 — Sanka
 - Searching for his path at the start; above all wants to do his best with his Pokémon.
@@ -84,27 +107,24 @@ Named competitors met at the Catch Ceremony and throughout the circuit. Numbers 
 ### Challenger 5 — Riri
 - Sanka's big sister; only entered because he pushed her to come along.
 - **Arc:** her Pokémon doesn't listen and does as it pleases. She must learn to *understand* it instead of commanding — Hesianor's "listen to them" philosophy is a natural thread for her. Breakthrough in a perilous **2v2 alongside the hero against the Madkings operatives who defeated her brother**.
-- **Ending:** joins the **Sanctuary's rehabilitation work** under the Professor's institute.
+- **Ending:** joins the **Sanctuary's rehabilitation work** under Professor Globo's institute.
 - **Partner:** TBD — must be famously headstrong. Candidates: Mankey line, Bagon, Rockruff (listens only once she stops commanding and starts asking).
 
 ### Challenger 20 — Arthur
 - Wants to become a ranger to live in nature among Pokémon.
 - **Partner:** TBD
 
-### Open — Rival 3 decision
-Candidate: promote **Sanka & Riri** into a shared sibling rival slot woven through the brackets. Alternative: keep them as recurring challengers and design Rival 3 separately.
+(Q remains Challenger 12 on the public boards — rival status and challenger number coexist.)
 
 ---
 
 ## Other Key NPCs
 
-### The Professor (placeholder: "Cypress")
-- **Status:** name, gender, and personality are placeholders — the character will likely be based on a Discord friend. Everything below is role, not identity.
-- **Role:** field researcher of trainer-Pokémon bonding; manages the Partnering Park (Zeegem) and the Institute (Verdant Basin); the Sanctuary and its rehabilitation grounds fall under the institute. Their research is the scientific foundation of the Corps' philosophy.
-- **Plot:** discovers the synthetic signature in a Shadow sample (with Hippotes' instruments) — evidence implicating the very top of the institution they helped build.
+### Professor Globo
+- **Identity:** based on a Discord friend (Globo) — older than the challenger generation, which suits the role. The name keeps the professorial botanical tradition with a Laekon twist: a globo is a type of onion. Personality details to be filled in as the creator gets to know him; write him warm and authoritative until then.
+- **Role:** field researcher of trainer-Pokémon bonding; manages the Partnering Park (Zeegem) and the Institute (Verdant Basin); the Sanctuary and its rehabilitation grounds fall under the institute. His research is the scientific foundation of the Corps' philosophy.
+- **Plot:** discovers the synthetic signature in a Shadow sample (with Hippotes' instruments) — evidence implicating the very top of the institution he helped build.
+- **Partner:** TBD — Globo will choose. Candidates offered: **Sirfetch'd** (the leek knight — alliums for the onion professor, distinguished older gentleman), **Torterra** (an ecosystem on one creature's back — coexistence embodied), **Arboliva** (serene olive elder), **Vileplume** (the literal bulb).
 
 ### The Sanctuary Ranger
 Day-to-day keeper of the Sanctuary; becomes one of the player's most important supporting characters. Design TBD.
-
-### The Rival Trio
-See DESIGN_DOCUMENT.md — Rival 1 (the Skeptic), Rival 2 (the Natural), Rival 3 pending the Sanka & Riri decision.

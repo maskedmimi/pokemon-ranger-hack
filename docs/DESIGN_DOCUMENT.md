@@ -1,7 +1,7 @@
 # Pokémon ROM Hack — Design Document
 > Base: Pokémon Emerald (GBA) | Engine: pokeemerald-expansion
-> Status: Pre-production — core concepts locked
-> Last updated: July 2026 (v3 — hierarchy rework, Shadow terminology, Madkings, Warden redesign)
+> Status: Pre-production — core concepts locked; first maps built
+> Last updated: July 2026 (v4 — rival trio cast: Q & Juliette; Professor Globo)
 
 ---
 
@@ -21,7 +21,7 @@
 13. [Biomes & Outposts](#biomes--outposts)
 14. [Open Questions](#open-questions)
 
-> Companion documents: `NAMING_GUIDE.md` (naming system & titles), `CHARACTERS.md` (full cast reference), `TECHNICAL_CONTEXT.md` (dev environment).
+> Companion documents: `NAMING_GUIDE.md` (naming system & titles), `CHARACTERS.md` (full cast reference), `TECHNICAL_CONTEXT.md` (dev environment & conventions), `MAP_DESIGN_GUIDE.md` (map craft lessons).
 > Terminology note: corrupted Pokémon are called **Shadow Pokémon** (the term "Obscure" from earlier drafts is retired everywhere, including code identifiers).
 
 ---
@@ -37,7 +37,7 @@ Everything revolves around one central question asked from three different angle
 
 **Is a bond something you build, something you're given, or something you choose to see?**
 
-The Three Wardens embody the three answers: Halthir *builds* it, Hesianor believes it is *given*, Hippotes learns to *see* it. Morimorty is the man who abandoned all three — and is saved, in the end, by all three.
+The Three Wardens embody the three answers: Halthir *builds* it, Hesianor believes it is *given*, Hippotes learns to *see* it. Morimorty is the man who abandoned all three — and is saved, in the end, by all three. The rivals ask it again in miniature: Q bonds with the partner he never meant to catch; Juliette never stops believing in the partner everyone wrote off.
 
 ### What Makes This Hack Different
 - The gym challenge is replaced by the **Ranger Trials** — a public tournament circuit that is the one and only recruitment path into the Ranger Corps
@@ -63,8 +63,9 @@ The region feels **ancient and alive simultaneously**. Human infrastructure bend
 **Flemish geographic suffixes + biome flavor prefixes.** Full generator, glossary, and per-biome palettes in `NAMING_GUIDE.md`.
 
 Canon names so far:
-- **Zeegem** ("sea-home") — the coastal starter village, adjacent to the Partnering Park. Tidal Reach.
+- **Zeegem** ("sea-home") — the coastal starter village, adjacent to the Partnering Park. Tidal Reach. **Built** (map, music, interiors, warps).
 - **Kroonveld** ("crown field") — Heartlands capital; hosts the Grand Final and Ranger Corps HQ.
+- **Route 1** — coastal route east of Zeegem (routes use plain numbering, starting at 1). **First draft built.**
 
 ---
 
@@ -94,7 +95,7 @@ Outside the ladder:
 - **Participation, not victory:** challengers must *compete in* each zone's three tournaments, not win them. The gate to promotion is the Warden — their mission, then their duel. Challengers can lose brackets (to the player, to each other) and still become rangers. Losing to the player costs nobody their dream.
 - **Elite Ranger is accessible by design** — the Corps genuinely staffs itself from the Trials every year. Elite Rangers of past seasons appear across the region as NPCs (see Mimi).
 - **Trial Champion keeps the classic Pokémon "Champion" alive** — with the twist that in Laekon, being Champion was never the real prize. Every year the region holds its breath for the recognition that never comes.
-- **The star ranks (0–3) map 1:1 onto the player progression variable** — 0 Challenger, ⭐ Second Class, ⭐⭐ First Class, ⭐⭐⭐ Elite. This is what gates map access in code. (Code identifiers should use SHADOW, not OBSCURE.)
+- **The star ranks (0–3) map 1:1 onto the player progression variable** — 0 Challenger, ⭐ Second Class, ⭐⭐ First Class, ⭐⭐⭐ Elite. This is what gates map access in code. (Code identifiers use SHADOW, not OBSCURE.)
 
 ### The Three Wardens
 Appointed zone guardians, each embodying a pillar of the ranger craft. Full personalities in `CHARACTERS.md`.
@@ -109,7 +110,7 @@ Appointed zone guardians, each embodying a pillar of the ranger craft. Full pers
 Morimorty and the three Wardens were **challengers of the same Trials generation** — four friends who adventured together. They witnessed him become the Hero of Laekon (see The Villain). They trust him deep in their hearts. Each of them can feel that *something in him changed* after the crisis of their youth — but loyalty finishes none of those thoughts. You don't suspect the friend who saved your life at twenty. Their blindness is love, not foolishness — and it is why the betrayal, when revealed, devastates.
 
 ### Governance — The Circuit Council
-A **triumvirate**: the Ranger Corps leadership (Morimorty and the Wardens), the Professor's Institute (bond research, the Corps' scientific backbone), and the Gym Leaders (guardians of battle tradition). Every major decision requires all three to agree. Its balance is its vulnerability — and Morimorty is quietly tilting it.
+A **triumvirate**: the Ranger Corps leadership (Morimorty and the Wardens), Professor Globo's Institute (bond research, the Corps' scientific backbone), and the Gym Leaders (guardians of battle tradition). Every major decision requires all three to agree. Its balance is its vulnerability — and Morimorty is quietly tilting it.
 
 ---
 
@@ -140,7 +141,7 @@ The Shadow crisis peaks — supervised by the Corps' crisis commander himself. T
 
 ## The Catch Ceremony
 
-At the start of every Trials season, new challengers don't receive a starter from a lab. They participate in the **Catch Ceremony** — a public tradition held in the **Partnering Park**, a sprawling nature reserve adjacent to Zeegem, managed by the Professor.
+At the start of every Trials season, new challengers don't receive a starter from a lab. They participate in the **Catch Ceremony** — a public tradition held in the **Partnering Park**, a sprawling nature reserve adjacent to Zeegem, managed by Professor Globo.
 
 ### How It Works
 - The park is populated with wild Pokémon of all kinds — common, rare, regionally unique
@@ -151,7 +152,7 @@ At the start of every Trials season, new challengers don't receive a starter fro
 
 ### Why It Works
 - No arbitrary restriction to 3 choices; the single ball creates meaningful tension
-- Other challengers catch alongside you — narrative introduction to the rivals and challenger cast (Q, Sanka, Riri, Arthur...)
+- Other challengers catch alongside you — narrative introduction to the rivals and challenger cast (Q catches the Applin that bites him; Juliette catches the Magikarp everyone laughs at; Sanka, Riri, Arthur...)
 - The Professor's comments on your catch echo throughout the game
 - Framed as the **first Ranger assessment** — senior Rangers observe how you approach wild Pokémon
 
@@ -189,9 +190,10 @@ The bond between a trainer and their partner Pokémon breaks through the artific
 - The player's partner matters mechanically, not just narratively
 - Bond strength affects purification effectiveness
 - Every Shadow encounter is framed as an emotional rescue, not just a boss fight
+- One late beat: raw power alone fails to purify (Juliette's moment — Mag's bond, not Mag's strength, does the lifting)
 
 ### The Mid-Game Turning Point
-The Professor discovers the synthetic signature in a sample (isolated with Hippotes' analytical tools) — proof the incidents are manufactured, and evidence pointing toward the very top of the institution.
+Professor Globo discovers the synthetic signature in a sample (isolated with Hippotes' analytical tools) — proof the incidents are manufactured, and evidence pointing toward the very top of the institution.
 
 ---
 
@@ -272,18 +274,16 @@ Morimorty is not destroyed; he is *reached*. What breaks through is not defeat b
 
 ## The Rival Trio
 
-Three rivals from the Catch Ceremony who reappear throughout the Trials.
+Rivals from the Catch Ceremony who reappear throughout the Trials. Full bios in `CHARACTERS.md`. Each answers the bond question differently.
 
-### Rival 1 — The Skeptic
-Analytical, methodical, sees Pokémon as tools — not cruelly, just practically. Partner chosen purely for stats; a genuine bond forms despite himself. Drawn toward Morimorty's "strength over bonds" narrative in Zone 2 before rejecting it. Battled most frequently; most tactically instructive.
-**Partner:** TBD — something competitive that becomes unexpectedly loyal.
+### Rival 1 — Q (RESOLVED)
+The hometown rival from Zeegem (Challenger 12). Hyperactive cook who wants to be the very best Ranger. Catch Ceremony gag: grabs what he thinks is an apple — it bites him. Learns to love the **Applin** he never meant to catch (absorbing the former "Skeptic" arc: the bond forms despite the plan). Catches **Larvitar** early as his ambition pick. Battled most frequently. Endgame team: Tyranitar (ace), Jolteon, Alakazam, Hydrapple, Lapras, Flygon. Side quests: homemade potions, ingredient collection. (Based on friend Douze.)
 
-### Rival 2 — The Natural
-Gifted; her Pokémon adore her effortlessly — but she chases the tournament spotlight rather than the bond. Her growth: the crowd's cheers mean less than she thought. Ahead early; plateaus as the player's bond deepens.
-**Partner:** TBD — something naturally charismatic.
+### Rival 2 — Juliette (RESOLVED)
+The Bulldozer. Hotheaded, radically honest, friendly trash-talker — the rival players fear. Catches a **Magikarp** ("Mag") everyone laughs at and never stops believing; mid-game it becomes **Gyarados** and the laughing stops. Pure hyper-offense, no strategy, no status moves. One late beat: raw power fails to purify a Shadow Pokémon — Mag's bond does the lifting. Team beyond Mag: TBD (her real Galar/Paldea teams). (Based on the creator's fiancée.)
 
 ### Rival 3 — TBD
-Reserved. Candidate: promote **Sanka & Riri** into a shared sibling rival slot (their arcs already interlock with the plot) — or keep them as challengers and design Rival 3 separately.
+Leading candidate: promote **Sanka & Riri** into a shared sibling rival thread (their arcs already interlock with the plot). Pending confirmation.
 
 ---
 
@@ -291,17 +291,18 @@ Reserved. Candidate: promote **Sanka & Riri** into a shared sibling rival slot (
 
 Full bios in **`CHARACTERS.md`**. Summary:
 
-- **The Professor** (name/gender placeholder — likely a Discord friend; "Cypress" is the working name) — bond researcher; runs the Partnering Park and the Institute; discovers the synthetic signature; the Sanctuary and its rehabilitation work fall under her institute.
+- **Professor Globo** — bond researcher (based on Discord friend Globo; name keeps the botanical professor tradition — a globo is a type of onion); runs the Partnering Park and the Institute; discovers the synthetic signature; the Sanctuary and its rehabilitation work fall under his institute. Partner TBD (candidates: Sirfetch'd, Torterra, Arboliva, Vileplume).
 - **Morimorty** — see The Villain.
 - **The Three Wardens** — Hesianor (Coexistence), Hippotes (Understanding, EV/IV service, the lab AI **Settopih**), Halthir (Protection, crisis command, Shadow protocols).
 - **Mimi** — Elite Ranger and former **Trial Champion** whom Mew never came for; the Corps' lead field investigator, partner Dragapult. Unknowingly steered by Morimorty. Duo battle alongside the player late game; entrusts them with the final mission.
-- **The Challenger Cast** — Q, Sanka, Riri, Arthur + more TBD. Sanka's first-responder dream points at Halthir's crisis response teams; Riri's rehabilitation dream points at the Sanctuary.
+- **The Rival Trio** — Q, Juliette, Rival 3 TBD.
+- **The Challenger Cast** — Sanka, Riri, Arthur (+ Q as Challenger 12) + more TBD. Sanka's first-responder dream points at Halthir's crisis response teams; Riri's rehabilitation dream points at the Sanctuary.
 
 ---
 
 ## The Sanctuary
 
-A Pokémon conservation project in the **Verdant Basin**, encountered **early in the game**, run under the Professor's institute. It doubles as Laekon's rehabilitation grounds — where rescued Pokémon, and later purified Shadow Pokémon, recover. The Ranger managing it day-to-day becomes a recurring supporting character.
+A Pokémon conservation project in the **Verdant Basin**, encountered **early in the game**, run under Professor Globo's institute. It doubles as Laekon's rehabilitation grounds — where rescued Pokémon, and later purified Shadow Pokémon, recover. The Ranger managing it day-to-day becomes a recurring supporting character.
 
 ### What Contributions Unlock
 - Real rewards: items, area access, lore entries
@@ -321,7 +322,7 @@ Seven distinct biomes, each with a Ranger Outpost with its own specialty, cultur
 
 | Biome | Name | Outpost Specialty | Key Feature |
 |-------|------|-------------------|-------------|
-| Coastal Wetlands | The Tidal Reach | Marine biology, water migration | **Zeegem** + Partnering Park; stilt towns, fishing-community tensions (Hesianor's home turf) |
+| Coastal Wetlands | The Tidal Reach | Marine biology, water migration | **Zeegem** + Partnering Park + **Route 1**; stilt towns, fishing-community tensions (Hesianor's home turf) |
 | Ancient Forest | The Deepwood | Old-growth preservation, psychic/ghost phenomena | The Professor's research station |
 | Alpine Mountains | The Highwatch | Search & rescue, weather monitoring | Oldest outpost; site of the ancient Shadow incident |
 | Volcanic Plains | The Ashfields | Geological monitoring, disaster response | Sacred active volcano, restricted access |
@@ -335,22 +336,23 @@ Biomes bleed into each other at their edges — the Deepwood creeps into the Ver
 
 ## Open Questions
 
-Resolved in v3: ~~hierarchy~~ (final ladder above), ~~Warden roles & personalities~~, ~~villain team name~~ (the Madkings), ~~terminology~~ (Shadow Pokémon), ~~Morimorty backstory~~ (Hero of Laekon, quartet generation), ~~Mew's withdrawal~~, ~~redemption direction~~.
+Resolved in v4: ~~Rival 1~~ (Q — Applin ceremony partner, Larvitar catch, Douze's team), ~~Rival 2~~ (Juliette — Magikarp/Gyarados "Mag", the Bulldozer), ~~Rival 1 & 2 partners~~, ~~the Professor's identity~~ (Globo).
 
 Still open:
 
-- [ ] **Rival 3** — promote Sanka & Riri, or design separately?
-- [ ] **Rival 1 & 2 partner Pokémon**
+- [ ] **Rival 3 — confirm** the Sanka & Riri sibling promotion (leading candidate), or design separately
+- [ ] **Juliette's full team** — ask her for her real Galar/Paldea rosters (motif: all-out attackers)
+- [ ] **Globo's partner** — his pick (candidates: Sirfetch'd, Torterra, Arboliva, Vileplume) + personality details
 - [ ] **Morimorty's full battle team** (Marshadow anchors it; shadow/grief motif)
 - [ ] **The three Warden missions** (one per zone, reflecting each pillar; Hesianor's likely ties to Tidal Reach fishing tensions)
 - [ ] **The old crisis** — what exactly happened in Morimorty's Trials year, and what it cost him
 - [ ] **Redemption scene staging** — how the Wardens reach him; what becomes of him after
 - [ ] **Settopih's vessel** — Rotom lab-possession vs Porygon-Z
-- [ ] **The Professor** — final name, identity (Discord friend), personality
 - [ ] **Tournament venues** — which cities/biomes host which tournaments
 - [ ] **Travel between biomes**
 - [ ] **The synthetic-signature discovery scene** — exact narrative moment
 - [ ] **The Heart of Laekon** — visual design and location
+- [ ] **Riri's partner** — headstrong species pick (Mankey line, Bagon, Rockruff)
 - [ ] **Remaining town names** — generate with NAMING_GUIDE.md as maps are built
 - [ ] **"Soul Squad"** — optional nickname (challenger friend group?) or drop
 
