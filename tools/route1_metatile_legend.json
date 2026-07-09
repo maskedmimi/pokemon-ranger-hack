@@ -1,0 +1,39 @@
+{
+  "_comment": "Metatile legend for LAYOUT_ROUTE1 (Tidal Reach coastal route east of Zeegem). Primary tileset gTileset_General, secondary gTileset_Dewford (same pair as LAYOUT_ZEEGEM). Every entry below was copied from a real, working map already in this repo -- IDs, collision, and elevation are not invented. Sources: data/layouts/Zeegem/map.bin (shoreline + rocks + solo trees + tree wall), data/layouts/Route101/map.bin (tall grass, ledge, plain grass -- General primary tileset is shared across every vanilla route so these tiles work unmodified here). collision: 0 = walkable, 1 = blocked (per pokeemerald map.bin bit 10-11 encoding). elevation: bits 12-15, 3 matches Zeegem's ground level, 0 matches Zeegem's water level.",
+
+  "ground": {
+    "GRASS":        {"id": "0x001", "collision": 0, "elevation": 3, "behavior": "MB_NORMAL",  "source": "Route101 (0,y) plain lawn"},
+    "TALL_GRASS":   {"id": "0x00d", "collision": 0, "elevation": 3, "behavior": "MB_TALL_GRASS", "source": "Route101 grass-gate patches"},
+    "SAND_PATH":    {"id": "0x124", "collision": 0, "elevation": 3, "behavior": "MB_SAND",     "source": "Zeegem beach patch rows 7-10"},
+    "CLEARING":     {"id": "0x121", "collision": 0, "elevation": 3, "behavior": "MB_NORMAL",  "source": "Zeegem main plaza ground (SandPit_Center graphic), reused as rest-spot clearing accent"}
+  },
+
+  "trees_and_rocks": {
+    "TREE_WALL":  {"id": "0x243", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "Dewford", "source": "Zeegem north/west border fill"},
+    "TREE_EDGE":  {"id": "0x23a", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "Dewford", "source": "Zeegem border, inner transition tile next to open ground"},
+    "TREE_SOLO":  {"id": "0x239", "collision": 1, "elevation": 3, "behavior": "MB_SAND",   "tileset": "Dewford", "source": "Zeegem standalone landmark tree (collision forced to 1 here; Zeegem's own instance is walkable, likely because it's boxed in by neighboring tree-wall tiles there, but a lone tree candidate in open Route1 grass must block)"},
+    "ROCK":       {"id": "0x0e2", "collision": 1, "elevation": 3, "behavior": "MB_NORMAL", "tileset": "General", "source": "Zeegem scattered boulder decoration"}
+  },
+
+  "ledge_jump_south": {
+    "_comment": "One-way hop south. Verbatim 5-wide unit from Route101 rows 6-7 (06e cap / 087 x3 hop tiles / 0d6 cap). Extend the middle run for a wider ledge; caps stay single-width at each end.",
+    "LEDGE_CAP_LEFT":  {"id": "0x06e", "collision": 1, "elevation": 0, "tileset": "General"},
+    "LEDGE_HOP":       {"id": "0x087", "collision": 1, "elevation": 0, "behavior": "MB_JUMP_SOUTH", "tileset": "General"},
+    "LEDGE_CAP_RIGHT": {"id": "0x0d6", "collision": 1, "elevation": 0, "tileset": "General"}
+  },
+
+  "shore_and_sea": {
+    "_comment": "Two-level coastline copied tile-for-tile from Zeegem's own south shore (rows 16-19). Baseline coastline: land / SHORE_FILL row / SEA rows. A cove is formed by shifting the SHORE_FILL row one row further north for a column span, bridged by the corner pair below.",
+    "SHORE_CORNER_L": {"id": "0x146", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "west end of a shore-edge run; land sits to its west and north-west"},
+    "SHORE_FILL":     {"id": "0x12c", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "straight shore-edge run, tiles freely with itself"},
+    "SHORE_CORNER_R": {"id": "0x145", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "east end of a shore-edge run; land sits to its east and north-east"},
+    "SHORE_STEP_L":   {"id": "0x12d", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "sits directly under SHORE_CORNER_L, bridges edge row down to open sea"},
+    "SHORE_STEP_R":   {"id": "0x12b", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "sits directly under SHORE_CORNER_R"},
+    "SEA":            {"id": "0x170", "collision": 0, "elevation": 0, "behavior": "MB_OCEAN_WATER", "note": "open deep water, tiles freely with itself in all directions"}
+  },
+
+  "border_fill": {
+    "_comment": "border.bin (repeats infinitely beyond the map edges). Zeegem's own border.bin is 4x SEA (0x170) since its south edge is coastline -- Route1 reuses the same so the horizon beyond the sea reads as more open water.",
+    "id": "0x170"
+  }
+}
