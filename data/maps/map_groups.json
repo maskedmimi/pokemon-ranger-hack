@@ -1164,5 +1164,9 @@
   "gMapGroup_IndoorSevenIslandRoute_Frlg": [
     "SevenIsland_SevaultCanyon_House_Frlg"
   ],
-  "gMapGroup_Laekon": []
+  "gMapGroup_Laekon": [
+    "Zeegem_House1",
+    "Zeegem_House2",
+    "Zeegem_House3"
+  ]
 }
