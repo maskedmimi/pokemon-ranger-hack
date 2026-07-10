@@ -66,7 +66,7 @@ Built on **pokeemerald-expansion** (RHH community), NOT vanilla pokeemerald.
 | Tool | Role |
 |------|------|
 | **Porymap 6.3.1** | Visual map editing & polish (human pass) |
-| **Poryscript** | ALL event scripting (`.pory`) — never raw `.s` scripts |
+| **Poryscript** | ALL event scripting (`.pory`) — never raw `.s` scripts. Compiled to `.inc` by a `Makefile` rule (`data/%.inc: data/%.pory`); edit the `.pory`, never the generated `.inc` directly. **One-time setup on a fresh clone:** the compiler binary itself is gitignored (it's a prebuilt release, not vendored source like this repo's other `tools/` entries), so `make` will fail with "poryscript: not found" until you download it — `curl -sL -o /tmp/pory.zip https://github.com/huderlem/poryscript/releases/latest/download/poryscript-linux.zip && unzip -oj /tmp/pory.zip poryscript -d tools/poryscript && chmod +x tools/poryscript/poryscript` (swap `-linux` for `-mac`/`-windows` off-WSL). `tools/poryscript/command_config.json` and `font_config.json` are tracked in git, so only the binary itself needs fetching. |
 | **tools/render_map.py** | Renders any layout's map.bin to PNG with real tileset graphics → `tools/renders/` (gitignored). Mandatory self-check after any data-level map edit. |
 | **tools/route1_metatile_legend.json** | Metatile legend (IDs + collision + elevation) decoded from vanilla/own maps — extend it, don't rebuild it |
 | **mGBA** | Emulator testing |
@@ -119,6 +119,11 @@ Built on **pokeemerald-expansion** (RHH community), NOT vanilla pokeemerald.
   reopen it fresh (don't rely on a stale open window's "reload") after, so
   it re-reads the patched file instead of overwriting it. See
   `docs/MAP_DESIGN_GUIDE.md` for the full rule.
+- **`data/maps/<Map>/scripts.inc` is a generated file once a sibling
+  `scripts.pory` exists** (Makefile rule, see the Poryscript row above) —
+  edit the `.pory`, never the `.inc` directly, or the next build silently
+  overwrites your edit. Maps that still only have a hand/Porymap-authored
+  `scripts.inc` stub (no `.pory` yet) are unaffected until one is added.
 
 ## Cleanup backlog
 
