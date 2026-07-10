@@ -1,0 +1,24 @@
+// Laekon Ranger Star Rank system (docs/DESIGN_DOCUMENT.md, "The Ranger Corps & Hierarchy").
+// VAR_RANGER_RANK (constants/vars.h) is the single progression variable, 0-3 -- see
+// constants/ranger_rank.h for the RANGER_RANK_* values. This is the only place the
+// rank is incremented; the Ranger Trials ceremony scenes call this script whenever a
+// Warden duel is won, rather than touching the var directly.
+
+script Common_EventScript_RangerRankUp {
+    if (var(VAR_RANGER_RANK) < RANGER_RANK_MAX) {
+        addvar(VAR_RANGER_RANK, 1)
+    }
+    playfanfare(MUS_OBTAIN_BADGE)
+    switch (var(VAR_RANGER_RANK)) {
+        case RANGER_RANK_SECOND_CLASS:
+            msgbox("You are now a RANGER SECOND CLASS!")
+        case RANGER_RANK_FIRST_CLASS:
+            msgbox("You are now a RANGER FIRST CLASS!")
+        case RANGER_RANK_ELITE:
+            msgbox("You are now an ELITE RANGER!")
+        default:
+            msgbox("You are now a CHALLENGER!")
+    }
+    waitfanfare
+    return
+}

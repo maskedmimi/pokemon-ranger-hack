@@ -33,6 +33,7 @@
 #include "constants/rgb.h"
 #include "constants/trainers.h"
 #include "constants/union_room.h"
+#include "constants/ranger_rank.h"
 
 enum {
     WIN_MSG,
@@ -133,6 +134,7 @@ static void PrintIdOnCard(void);
 static void PrintMoneyOnCard(void);
 static void PrintPokedexOnCard(void);
 static void PrintProfilePhraseOnCard(void);
+static void PrintRangerRankOnCard(void);
 static bool8 PrintAllOnCardBack(void);
 static void PrintNameOnCardBack(void);
 static void PrintHofDebutTimeOnCard(void);
@@ -941,6 +943,9 @@ static bool8 PrintAllOnCardFront(void)
     case 5:
         PrintProfilePhraseOnCard();
         break;
+    case 6:
+        PrintRangerRankOnCard();
+        break;
     default:
         sData->printState = 0;
         return TRUE;
@@ -1160,6 +1165,45 @@ static void PrintProfilePhraseOnCard(void)
         AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_NORMAL, 8, yOffsetsLine2[sData->isHoenn], sTrainerCardTextColors, TEXT_SKIP_DRAW, sData->easyChatProfile[2]);
         AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_NORMAL, GetStringWidth(FONT_NORMAL, sData->easyChatProfile[2], 0) + 14, yOffsetsLine2[sData->isHoenn], sTrainerCardTextColors, TEXT_SKIP_DRAW, sData->easyChatProfile[3]);
     }
+}
+
+// Laekon: Ranger star rank display. Text only for now -- star icons are a future
+// graphics-phase task (see docs/DESIGN_DOCUMENT.md, "The Ranger Corps & Hierarchy").
+static const u8 sText_TrainerCardRankLabel[] = _("RANK: ");
+static const u8 sText_RangerRankChallenger[] = _("CHALLENGER");
+static const u8 sText_RangerRankSecondClass[] = _("RANGER SECOND CLASS");
+static const u8 sText_RangerRankFirstClass[] = _("RANGER FIRST CLASS");
+static const u8 sText_RangerRankElite[] = _("ELITE RANGER");
+
+static const u8 *const sRangerRankNames[] =
+{
+    [RANGER_RANK_CHALLENGER]   = sText_RangerRankChallenger,
+    [RANGER_RANK_SECOND_CLASS] = sText_RangerRankSecondClass,
+    [RANGER_RANK_FIRST_CLASS]  = sText_RangerRankFirstClass,
+    [RANGER_RANK_ELITE]        = sText_RangerRankElite,
+};
+
+static void PrintRangerRankOnCard(void)
+{
+    static const u8 sYOffsets[] = {113, 104};
+    u8 buffer[40];
+    u8 *txtPtr;
+    u16 rank;
+
+    // This card is also used to display a linked player's card (sData->isLink),
+    // whose data comes from the transferred trainerCard struct, not our own live
+    // save block. VAR_RANGER_RANK is always OUR var, so only show it on our own
+    // card -- otherwise a viewed link partner would show our rank as theirs.
+    if (sData->isLink)
+        return;
+
+    rank = VarGet(VAR_RANGER_RANK);
+    if (rank > RANGER_RANK_MAX)
+        rank = RANGER_RANK_MAX; // debug menu Vars utility can set this to anything
+
+    txtPtr = StringCopy(buffer, sText_TrainerCardRankLabel);
+    StringCopy(txtPtr, sRangerRankNames[rank]);
+    AddTextPrinterParameterized3(WIN_CARD_TEXT, FONT_NORMAL, 8, sYOffsets[sData->isHoenn], sTrainerCardTextColors, TEXT_SKIP_DRAW, buffer);
 }
 
 static void BufferNameForCardBack(void)

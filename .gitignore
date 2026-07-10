@@ -68,3 +68,12 @@ __pycache__
 .map_version
 tools/renders/
 .claude/
+
+# Poryscript is a prebuilt third-party binary, not built from vendored source like the
+# other tools/ entries -- don't commit it. command_config.json/font_config.json ARE
+# tracked (they're project config, not the binary). See docs/TECHNICAL_CONTEXT.md.
+tools/poryscript/poryscript
+tools/poryscript/poryscript.exe
+tools/poryscript/*.zip
+tools/poryscript/CHANGELOG.md
+tools/poryscript/README.md
