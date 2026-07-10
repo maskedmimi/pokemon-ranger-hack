@@ -1,0 +1,21 @@
+mapscripts LaekonRoute1_MapScripts {}
+
+script LaekonRoute1_EventScript_RangerCheckpoint {
+    lock
+    faceplayer
+    if (var(VAR_RANGER_RANK) == RANGER_RANK_CHALLENGER) {
+        msgbox("Hold it. The waters east of
+                here are Corps business.
+
+                Come back when you're a
+                ranked Ranger, not just a
+                challenger.")
+    } else {
+        msgbox("Ranger business is quiet out
+                this way for now. Nothing
+                past here yet -- but you've
+                earned the right to look.")
+    }
+    release
+    end
+}

@@ -1,0 +1,26 @@
+mapscripts Zeegem_MapScripts {}
+
+script Zeegem_EventScript_OldSailor {
+    lock
+    faceplayer
+    switch (var(VAR_RANGER_RANK)) {
+        case RANGER_RANK_SECOND_CLASS:
+            msgbox("Second Class already? Fast
+                    work, kid. Keep it up.")
+        case RANGER_RANK_FIRST_CLASS:
+            msgbox("First Class! The whole
+                    Tidal Reach is talking
+                    about you.")
+        case RANGER_RANK_ELITE:
+            msgbox("An Elite Ranger, standing
+                    right here in Zeegem.
+                    Never thought I'd see it.")
+        default:
+            msgbox("Another challenger, eh?
+                    Everybody starts at zero
+                    stars. Let's see if you've
+                    got what it takes.")
+    }
+    release
+    end
+}
