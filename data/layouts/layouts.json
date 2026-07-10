@@ -9354,6 +9354,16 @@
       "secondary_tileset": "gTileset_Dewford",
       "border_filepath": "data/layouts/LaekonRoute1/border.bin",
       "blockdata_filepath": "data/layouts/LaekonRoute1/map.bin"
+    },
+    {
+      "id": "LAYOUT_LAEKON_SANCTUARY",
+      "name": "LaekonSanctuary_Layout",
+      "width": 20,
+      "height": 40,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/LaekonSanctuary/border.bin",
+      "blockdata_filepath": "data/layouts/LaekonSanctuary/map.bin"
     }
   ]
 }

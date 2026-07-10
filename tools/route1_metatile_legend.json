@@ -34,6 +34,53 @@
     "SEA":            {"id": "0x170", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "note": "open deep water, tiles freely with itself in all directions"}
   },
 
+  "ledge_jump_west": {
+    "_comment": "West-facing one-way hop ledge -- behavior MB_JUMP_WEST read directly from gTileset_General's own metatile_attributes.bin, not guessed. Placed 3x in LaekonRoute1 (columns x=8 rows 8-12, x=18 rows 9-12, x=31 rows 9-12) as a narrow rock-crevice corridor between grass/boulder clusters -- see tools/renders/route1_ledge_context.png (rendered scene) and tools/renders/route1_ledge_stack.png (the 3 tiles stacked in isolation: cap-top / hop x3 / cap-bottom, a clean, correctly-seamed vertical rock texture, land on the right, cliff face on the left). UNVERIFIED AGAINST A SECOND MAP, unlike every other entry in this legend: checked all 241 layouts in this repo using gTileset_General as primary, and these 3 IDs are used in ZERO of them -- there is no existing vanilla or hack map to cross-check against, only this tileset's own graphics and behavior byte. Per MAP_DESIGN_GUIDE.md section 1 ('if you can't cite a source, don't ship the tile'): the render and the behavior byte are both consistent with a real, intentionally-composed ledge, but this needs an explicit mGBA check before being trusted the way the rest of this legend is -- walking onto it from the east should shove the player one tile further west (a normal ledge hop). If that doesn't happen in-game, re-examine both this entry and the 3 real placements in LaekonRoute1's map.bin.",
+    "LEDGE_WEST_CAP_TOP":    {"id": "0x11e", "collision": 1, "elevation": 0, "behavior": "MB_JUMP_WEST", "tileset": "General", "source": "NONE -- see _comment, needs manual mGBA verification"},
+    "LEDGE_WEST_HOP":        {"id": "0x0a5", "collision": 1, "elevation": 0, "behavior": "MB_JUMP_WEST", "tileset": "General", "source": "NONE -- see _comment, needs manual mGBA verification"},
+    "LEDGE_WEST_CAP_BOTTOM": {"id": "0x126", "collision": 1, "elevation": 0, "behavior": "MB_JUMP_WEST", "tileset": "General", "source": "NONE -- see _comment, needs manual mGBA verification"}
+  },
+
+  "rock_cluster_water": {
+    "_comment": "2x2 boulder cluster with a wave-ripple ring, sourced verbatim from LAYOUT_ROUTE104's scattered sea-rock decoration (vanilla) -- see tools/renders/route104_rock_cluster.png. Collision/elevation (1,0) matches exactly between Route104 and every LaekonRoute1 placement. Always place as the full 2x2 unit (TL/TR over BL/BR), never individually -- used 12x in LaekonRoute1, scattered along both the north tree-wall band and the south shoreline (tools/renders/route1_cove_context.png).",
+    "ROCK_CLUSTER_TL": {"id": "0x150", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "General", "source": "Route104 (vanilla) scattered sea-rock decoration, e.g. (7,48)"},
+    "ROCK_CLUSTER_TR": {"id": "0x151", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "General", "source": "Route104 (vanilla) scattered sea-rock decoration, e.g. (8,48)"},
+    "ROCK_CLUSTER_BL": {"id": "0x158", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "General", "source": "Route104 (vanilla) scattered sea-rock decoration, e.g. (7,49)"},
+    "ROCK_CLUSTER_BR": {"id": "0x159", "collision": 1, "elevation": 0, "behavior": "MB_NORMAL", "tileset": "General", "source": "Route104 (vanilla) scattered sea-rock decoration, e.g. (8,49)"}
+  },
+
+  "tidepool": {
+    "_comment": "Shallow-water tide-pool transition tiles, collision 0 elevation 3 -- same elevation as land, so MB_SHALLOW_WATER is walkable without Surf (matches vanilla's own use of this behavior; do not confuse with shore_and_sea's MB_OCEAN_WATER, which is elevation 1 and Surf-only). Used to shape LaekonRoute1's organic reef/lagoon band (rows 2-6 and 14-19) instead of the original generator's straight shore -- see tools/renders/route1_cove_context.png. Every ID cross-checked against at least 3 independent vanilla maps (all gTileset_General primary; secondary tileset differs per map, which doesn't matter for a primary-tileset ID). These pieces tile organically and were not individually named by corner/edge role the way shore_and_sea's were -- render and inspect the actual seam (MAP_DESIGN_GUIDE.md section 8) before placing one next to an untested neighbor; don't assume a name implies a shape.",
+    "TIDEPOOL_185": {"id": "0x185", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, LilycoveCity (vanilla)"},
+    "TIDEPOOL_186": {"id": "0x186", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_18D": {"id": "0x18d", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_18E": {"id": "0x18e", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_195":  {"id": "0x195", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_196":  {"id": "0x196", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_197":  {"id": "0x197", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_19B":  {"id": "0x19b", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "TIDEPOOL_19C":  {"id": "0x19c", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "TIDEPOOL_19E":  {"id": "0x19e", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "TIDEPOOL_19F":  {"id": "0x19f", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_1A5":  {"id": "0x1a5", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_1A6":  {"id": "0x1a6", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_1A7":  {"id": "0x1a7", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, LilycoveCity (vanilla)"},
+    "TIDEPOOL_1AE":  {"id": "0x1ae", "collision": 0, "elevation": 3, "behavior": "MB_SHALLOW_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "TIDEPOOL_ROCK": {"id": "0x194", "collision": 1, "elevation": 3, "behavior": "MB_NORMAL", "tileset": "General", "source": "Route108 (vanilla) -- exact (collision 1, elevation 3) match to LaekonRoute1's usage; also present in MossdeepCity/LilycoveCity but those two use (collision 1, elevation 0) instead, so Route108 is the precedent that actually matches"}
+  },
+
+  "deep_water_variants": {
+    "_comment": "Open-ocean surfable water variants (wave/foam texture variety), collision 0 elevation 1 -- identical convention to shore_and_sea's SEA/SHORE_* tiles above (see the 'why elevation 1' note there), so these are drop-in replacements for plain SEA anywhere more visual variety is wanted. Every entry cross-checked against at least 4 independent vanilla maps (all gTileset_General primary).",
+    "DEEP_WATER_1A3": {"id": "0x1a3", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108 (vanilla)"},
+    "DEEP_WATER_1A4": {"id": "0x1a4", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "DEEP_WATER_1AD": {"id": "0x1ad", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "DEEP_WATER_1AF": {"id": "0x1af", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "DEEP_WATER_1B7": {"id": "0x1b7", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "DEEP_WATER_1BD": {"id": "0x1bd", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "DEEP_WATER_1BE": {"id": "0x1be", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"},
+    "DEEP_WATER_1BF": {"id": "0x1bf", "collision": 0, "elevation": 1, "behavior": "MB_OCEAN_WATER", "tileset": "General", "source": "Route125, Route127, MossdeepCity, Route108, LilycoveCity (vanilla)"}
+  },
+
   "border_fill": {
     "_comment": "border.bin (repeats infinitely beyond the map edges). Zeegem's own border.bin is 4x SEA (0x170) since its south edge is coastline -- Route1 reuses the same so the horizon beyond the sea reads as more open water.",
     "id": "0x170"

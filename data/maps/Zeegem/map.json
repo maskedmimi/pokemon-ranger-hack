@@ -17,6 +17,11 @@
       "map": "MAP_LAEKON_ROUTE1",
       "offset": 0,
       "direction": "right"
+    },
+    {
+      "map": "MAP_LAEKON_SANCTUARY",
+      "offset": 0,
+      "direction": "up"
     }
   ],
   "object_events": [
