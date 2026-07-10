@@ -109,6 +109,16 @@ Built on **pokeemerald-expansion** (RHH community), NOT vanilla pokeemerald.
 - MAPSEC placeholders: Zeegem currently displays "LITTLEROOT TOWN"
   (`MAPSEC_LITTLEROOT_TOWN`); real `MAPSEC_ZEEGEM` etc. wait for the Laekon
   region map (Porymap Region Map Editor session, later).
+- **One editor at a time on map data.** Porymap and direct/scripted edits to
+  `map.bin`/`border.bin` (e.g. `tools/gen_route1.py`-style generators, hex
+  edits, `tools/check_map.py` fixes) must never run in the same working
+  session. Porymap keeps its own in-memory copy of the layout and **a
+  Porymap save clobbers any external binary patch made since it was
+  opened** — it writes its own state back out, silently discarding the
+  external change. Close Porymap fully before making a data-level edit, and
+  reopen it fresh (don't rely on a stale open window's "reload") after, so
+  it re-reads the patched file instead of overwriting it. See
+  `docs/MAP_DESIGN_GUIDE.md` for the full rule.
 
 ## Cleanup backlog
 

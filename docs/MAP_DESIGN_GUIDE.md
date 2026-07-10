@@ -188,3 +188,28 @@ Treat `python3 tools/render_map.py <LAYOUT> -o tools/renders/<LAYOUT>.png --scal
 of anything that changed as a mandatory step after *any* map.bin edit, generated or hand-drawn --
 not an optional nice-to-have at the end. A build succeeding and a traversability check passing
 are necessary but not sufficient; they don't catch a wrong tile choice or a visual seam at all.
+
+---
+
+## 9. One editor at a time -- Porymap and data-level edits don't mix mid-session
+
+Porymap loads a layout's `map.bin`/`border.bin` into memory on open and writes its own
+in-memory state back out on save. It does not diff against the file on disk first. That means:
+**if a script, hex edit, or `tools/check_map.py`-driven fix touches the binary while Porymap
+still has that layout open, the next Porymap save silently overwrites the external change** --
+there is no warning, no merge, and no conflict marker. The generated/patched data is just gone,
+and the loss isn't obvious until the next render or playtest.
+
+**Rule: close Porymap before any data-level map edit (generator script, manual binary patch,
+collision/elevation fix applied outside Porymap), and reopen it fresh afterward** -- not a stale
+already-open window, since Porymap won't spontaneously reload a file that changed underneath it.
+A fresh open reads the patched file as the new baseline, so the next Porymap save preserves the
+external change instead of clobbering it.
+
+Practical consequence for fixing violations `tools/check_map.py` reports: prefer making the fix
+**Porymap-native** (open the map, use Porymap's own collision/elevation painting tools) whenever
+the fix is something Porymap can express directly, rather than patching `map.bin` externally and
+hoping to reopen Porymap before anyone saves over it. Reserve external/scripted edits for things
+Porymap has no UI for (bulk generation, programmatic legend-driven placement) -- and treat those
+sessions as exclusive: no Porymap window open on that layout until the script is done and the
+result has been rendered and inspected (section 8).
